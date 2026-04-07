@@ -1,14 +1,14 @@
 #Mapping species within a genus.
 
+#Check that libraries are installed.
+
+#install.packages("spData)
+#install.packages("sf")
+
 #Libraries
 
-library(terra)
-library(geodata)
-library(maps)
-library(wesanderson)
 library(spData)
 library(sf)
-library(png)
 data("us_states")
 
 #Functions
