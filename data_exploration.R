@@ -46,11 +46,45 @@ par(mar = c(5, 8, 4, 2) + 0.1)
 barplot(t(county_count),
         horiz = TRUE,
         las = 1,
-        cex.names = 0.8)
+        cex.names = 0.8,
+        col = "darkgreen")
 
 par(mar = c(5, 4, 4, 2) + 0.1)
 
+#With great caution we can use some spatial info...
 
+Carex_clean$LatDecL[Carex_clean$species == "verrucosa"]
 
+#It is reading this as characters and includes "null"
 
+Carex_clean = Carex_clean[Carex_clean$LatDecL != "null" & Carex_clean$LongDecL != "null", ]
+
+#Now we make it numeric data.
+
+Carex_clean$LatDecL = as.numeric(Carex_clean$LatDecL)
+Carex_clean$LongDecL = as.numeric(Carex_clean$LongDecL)
+
+#Now we can plot it.
+
+boxplot(Carex_clean$LatDecL[Carex_clean$species == "alata"])
+
+#We can look at ranges
+
+Carex_Latmin = sapply(species, function(x){
+  min(Carex_clean$LatDecL[Carex_clean$species == x], na.rm = TRUE)
+})
+
+Carex_Latmax = sapply(species, function(x){
+  max(Carex_clean$LatDecL[Carex_clean$species == x], na.rm = TRUE)
+})
+
+Carex_Latavg = sapply(species, function(x){
+  mean(Carex_clean$LatDecL[Carex_clean$species == x], na.rm = TRUE)
+})
+
+#Combine these into one matrix
+
+carex_range = data.frame(Carex_Latmin, Carex_Latmax, Carex_Latavg)
+
+boxplot(t(carex_range), las = 1, horizontal = TRUE)
 
