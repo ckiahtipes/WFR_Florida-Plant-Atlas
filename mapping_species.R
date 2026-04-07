@@ -42,7 +42,7 @@ carex <- read.csv("carex_dist.csv", header = TRUE)
 carex_species = unique(carex$Scientific.Name)
 
 #Let's read a shapefile with county polygons.
-###From: https://catalog.data.gov/dataset/2024-cartographic-boundary-file-kml-county-and-equivalent-for-united-states-1-500000
+###From: https://catalog.data.gov/dataset/2024-cartographic-boundary-file-shp-county-and-equivalent-for-united-states-1-500000
 
 counties = read_sf("mapping/cb_2024_us_county_500k/cb_2024_us_county_500k.shp")
 
