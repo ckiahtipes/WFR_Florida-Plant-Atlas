@@ -70,21 +70,45 @@ boxplot(Carex_clean$LatDecL[Carex_clean$species == "alata"])
 
 #We can look at ranges
 
-Carex_Latmin = sapply(species, function(x){
-  min(Carex_clean$LatDecL[Carex_clean$species == x], na.rm = TRUE)
-})
-
-Carex_Latmax = sapply(species, function(x){
-  max(Carex_clean$LatDecL[Carex_clean$species == x], na.rm = TRUE)
-})
-
-Carex_Latavg = sapply(species, function(x){
-  mean(Carex_clean$LatDecL[Carex_clean$species == x], na.rm = TRUE)
+Carex_Lats = sapply(species, function(x){
+  Carex_clean$LatDecL[Carex_clean$species == x]
 })
 
 #Combine these into one matrix
 
-carex_range = data.frame(Carex_Latmin, Carex_Latmax, Carex_Latavg)
+par(mar = c(5, 8, 4, 2) + 0.1)
 
-boxplot(t(carex_range), las = 1, horizontal = TRUE)
+boxplot(Carex_Lats, 
+        horizontal = TRUE, 
+        las = 1, 
+        cex.axis = 0.8, 
+        ylim = c(25,31),
+        col = "forestgreen")
 
+par(mar = c(5, 4, 4, 2) + 0.1)
+
+#Let's look at dates.
+
+Carex_clean = Carex_clean[is.na(Carex_clean$Collection.Date) == FALSE | Carex_clean$Collection.Date == "05/15/1976", ]
+
+Carex_dates = Carex_clean$Collection.Date
+
+coll_dates = as.Date(Carex_clean$Collection.Date, tryFormats = c("%m/%d/%Y", "%d %b %Y"))
+
+coll_dates = coll_dates[is.na(coll_dates) == FALSE]
+Carex_clean = Carex_clean[is.na(coll_dates) == FALSE, ]
+
+coll_yr = format(coll_dates, format = "%Y")
+coll_mn = format(coll_dates, format = "%m")
+coll_dy = format(coll_dates, format = "%d")
+
+plot(coll_yr, coll_mn)
+
+sp_bymon = sapply(species, function(x){
+  as.numeric(coll_mn[Carex_clean$species == x])
+})
+
+boxplot(sp_bymon,
+        horizontal = TRUE, 
+        las = 1,
+        cex.axis = 0.8)
