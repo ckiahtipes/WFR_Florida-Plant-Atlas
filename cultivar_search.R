@@ -4,15 +4,16 @@ barcodes <- read.csv("data/AFP_barcodes.csv", header = TRUE)
 
 cult_pull <- read.csv("data/cult_mod_AFP.csv", header = TRUE)
 
-match = sapply(cult_pull$barcode, function(x){
-  grep(x, barcodes$SrcID, fixed = TRUE)
+match = apply(cult_pull$barcode, function(x){
+  barcodes$SrcID[barcodes$SrcID == x]
 })
 
-for(i in 1:length(match)){
-  if(length(match[[i]]) >= 1){
-    id_pull = barcodes$SrcID[match[[i]]]
-  } else {}
-  print(id_pull)
-}
 
-212950
+
+#for(i in 1:length(match)){
+#  if(length(match[[i]]) >= 1){
+#    id_pull = barcodes$SrcID[match[[i]]]
+#  } else {}
+#  print(id_pull)
+#}
+
