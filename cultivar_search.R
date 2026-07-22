@@ -4,7 +4,7 @@ barcodes <- read.csv("data/AFP_barcodes.csv", header = TRUE)
 
 cult_pull <- read.csv("data/cult_mod_AFP.csv", header = TRUE)
 
-match = sapply(cult_pull$barcode, function(x){
+match = sapply(cult_pull$collectionID, function(x){
   barcodes$SrcID[barcodes$SrcID == x]
 })
 
